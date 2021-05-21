@@ -400,12 +400,10 @@ namespace MathExplorer
             {
                 textBoxLightning.Text = "";
                 textBoxLightning.Enabled = false;
-                groupBox2.Enabled = true;
             }
             else
             {
                 textBoxLightning.Enabled = true;
-                groupBox2.Enabled = false;
             }
         }
 
