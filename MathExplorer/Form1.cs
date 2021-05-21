@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace MathExplorer
     public partial class Form1 : Form
     {
         public int intPointsEasy = 5; //Points gained for a right answer in Easy
-        public int intWrongEasy = 0; //Points subtracted for wrong answer in Easy
+        public int intWrongEasy = 1; //Points subtracted for wrong answer in Easy
 
         public int intPointsMedium = 10;
         public int intWrongMedium = 5;
@@ -43,12 +44,17 @@ namespace MathExplorer
         public int intTimePerAnswer;
         public int intTimeLeft = 0;
 
+        public int intLightningTime;
+
+        public Stopwatch stopWatch = new Stopwatch();
+
         public Form1()
         {
             InitializeComponent();
             toolTip1.SetToolTip(radioButtonEasy, "Gain " + intPointsEasy.ToString() + " points per correct answer, lose " + intWrongEasy.ToString() + " points per incorrect answer.");
             toolTip1.SetToolTip(radioButtonMedium, "Gain " + intPointsMedium.ToString() + " points per correct answer, lose " + intWrongMedium.ToString() + " points per incorrect answer.");
             toolTip1.SetToolTip(radioButtonHard, "Gain " + intPointsHard.ToString() + " points per correct answer, lose " + intWrongHard.ToString() + " points per incorrect answer.");
+            toolTip1.SetToolTip(textBoxLightning, "In lightning mode, your remaining time doesn't reset when you answer, rather you want to answer as many questions as you can in the time you can, in seconds, entered here.");
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -86,12 +92,12 @@ namespace MathExplorer
 
             if (intQuestionType == 0) //Addition
             {
-                intAnswer = intQuestionP1 + intQuestionP2;
+                intRightAnswer = intQuestionP1 + intQuestionP2;
                 strQuestion = intQuestionP1.ToString() + " + " + intQuestionP2.ToString() + " = ?";
             }
             else if (intQuestionType == 1) //Subtraction
             {
-                intAnswer = Math.Max(intQuestionP1, intQuestionP2) - Math.Min(intQuestionP1, intQuestionP2);
+                intRightAnswer = Math.Max(intQuestionP1, intQuestionP2) - Math.Min(intQuestionP1, intQuestionP2);
                 strQuestion = Math.Max(intQuestionP1, intQuestionP2).ToString() + " - " + Math.Min(intQuestionP1, intQuestionP2).ToString() + " = ?";
             }
             else if (intQuestionType == 2) //Multiplication
@@ -131,6 +137,7 @@ namespace MathExplorer
         public void SubmitAnswer()
         {
             strAnswer = textBoxAnswer.Text;
+            textBoxAnswer.Text = "";
 
             bool success = Int32.TryParse(strAnswer, out intAnswer);
             if (success)
@@ -141,43 +148,121 @@ namespace MathExplorer
                 {
                     if (radioButtonEasy.Checked)
                     {
-                        listBox1.Items.Add("Correct! +" + intPointsEasy + "points");
+                        listBox1.Items.Add("Correct! +" + intPointsEasy + " points");
                         intPoints += intPointsEasy;
+                        listBox1.SelectedIndex += 1;
                     }
                     if (radioButtonMedium.Checked)
                     {
-                        listBox1.Items.Add("Correct! +" + intPointsMedium + "points");
+                        listBox1.Items.Add("Correct! +" + intPointsMedium + " points");
                         intPoints += intPointsMedium;
+                        listBox1.SelectedIndex += 1;
                     }
                     if (radioButtonHard.Checked)
                     {
-                        listBox1.Items.Add("Correct! +" + intPointsHard + "points");
+                        listBox1.Items.Add("Correct! +" + intPointsHard + " points");
                         intPoints += intPointsHard;
+                        listBox1.SelectedIndex += 1;
                     }
                 }
                 else
                 {
                     if (radioButtonEasy.Checked)
                     {
-                        listBox1.Items.Add("Incorrect, lost " + intWrongEasy + " points. Correct answer was " + intAnswer.ToString());
+                        listBox1.Items.Add("Incorrect, lost " + intWrongEasy + " points. Correct answer was " + intRightAnswer.ToString() + ", you answered " + intAnswer.ToString());
+                        intPoints -= intWrongEasy;
+                        listBox1.SelectedIndex += 1;
+                    }
+                    if (radioButtonMedium.Checked)
+                    {
+                        listBox1.Items.Add("Incorrect, lost " + intWrongMedium + " points. Correct answer was " + intRightAnswer.ToString() + ", you answered " + intAnswer.ToString());
+                        intPoints -= intWrongMedium;
+                        listBox1.SelectedIndex += 1;
+                    }
+                    if (radioButtonHard.Checked)
+                    {
+                        listBox1.Items.Add("Incorrect, lost " + intWrongHard + " points. Correct answer was " + intRightAnswer.ToString() + ", you answered " + intAnswer.ToString());
+                        intPoints -= intWrongHard;
+                        listBox1.SelectedIndex += 1;
                     }
                 }
             }
             else
             {
-                Console.WriteLine("Tryparse failed!");
+                MessageBox.Show("Tryparse error");
             }
+
+            Play();
         }
         public void TimesUp()
         {
             boolPlaying = false;
             timer1.Enabled = false;
+            if (radioButtonLightningOFF.Checked)
+            {
+                if (intPoints <= 0)
+                {
+                    MessageBox.Show("Wow, you suck. You got " + intPoints.ToString() + " points... You played for: " + stopWatch.Elapsed.ToString());
+                }
+                else if (intPoints > 0 & intPoints < 100)
+                {
+                    MessageBox.Show("Good job, you managed to score " + intPoints.ToString() + " points. You played for: " + stopWatch.Elapsed.ToString());
+                }
+                else if (intPoints >= 100 & intPoints < 500)
+                {
+                    MessageBox.Show("Hell yeah! Congratulations, you got " + intPoints.ToString() + " points. You played for: " + stopWatch.Elapsed.ToString());
+                }
+                else if (intPoints >= 500 & intPoints < 1000)
+                {
+                    MessageBox.Show("Holy shit. " + intPoints.ToString() + " points! You played for: " + stopWatch.Elapsed.ToString());
+                }
+                else if (intPoints >= 1000)
+                {
+                    MessageBox.Show("You are a math god. " + intPoints.ToString() + " fucking points. You played for: " + stopWatch.Elapsed.ToString());
+                }
+            }
+            else
+            {
+                if (intPoints <= 0)
+                {
+                    MessageBox.Show("Wow, you suck. You got " + intPoints.ToString() + " points... (" + intLightningTime.ToString() + " second Lightning Mode)");
+                }
+                else if (intPoints > 0 & intPoints < 100)
+                {
+                    MessageBox.Show("Good job, you managed to score " + intPoints.ToString() + " points. (" + intLightningTime.ToString() + " second Lightning Mode)");
+                }
+                else if (intPoints >= 100 & intPoints < 500)
+                {
+                    MessageBox.Show("Hell yeah! Congratulations, you got " + intPoints.ToString() + " points. (" + intLightningTime.ToString() + " second Lightning Mode)");
+                }
+                else if (intPoints >= 500 & intPoints < 1000)
+                {
+                    MessageBox.Show("Holy shit. " + intPoints.ToString() + " points! (" + intLightningTime.ToString() + " second Lightning Mode)");
+                }
+                else if (intPoints >= 1000)
+                {
+                    MessageBox.Show("You are a math god. " + intPoints.ToString() + " fucking points. (" + intLightningTime.ToString() + " second Lightning Mode)");
+                }
+            }
+
+        }
+        public void Play()
+        {
+            GenerateQuestion();
+
+            listBox1.Items.Add(strQuestion);
+            listBox1.SelectedIndex += 1;
+            if (radioButtonLightningOFF.Checked)
+            {
+                intTimeLeft = intTimePerAnswer;
+            }
         }
 
         private void buttonPlay_Click(object sender, EventArgs e)
         {
             if (boolPlaying)
             {
+                stopWatch.Stop();
                 timer1.Enabled = false;
                 DialogResult dialogResult = MessageBox.Show("Are you sure you want to quit early?", "Confirm", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
@@ -187,10 +272,27 @@ namespace MathExplorer
                 else if (dialogResult == DialogResult.No)
                 {
                     timer1.Enabled = true;
+                    stopWatch.Start();
                 }
             }
             else
             {
+                stopWatch.Reset();
+                stopWatch.Start();
+
+                if (radioButtonLightningON.Checked)
+                {
+                    bool success = Int32.TryParse(textBoxLightning.Text, out intLightningTime);
+                    if (success)
+                    {
+                        intTimeLeft = intLightningTime;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid time (in seconds) in the Lightning Mode text box. Enter a valid time in seconds or disable Lightning Mode", "Error");
+                    }
+                }
+
                 if (checkBoxAddition.Checked == false && checkBoxSubtraction.Checked == false && checkBoxMultiplication.Checked == false)
                 {
                     MessageBox.Show("You have to enable at least one of addition, subtraction, or multiplication.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -238,15 +340,15 @@ namespace MathExplorer
                     boolPlaying = true;
                     intPoints = 0;
 
-                    GenerateQuestion();
+                    if (radioButtonLightningOFF.Checked)
+                    {
+                        intTimeLeft = intTimePerAnswer;
+                    }
 
-                    listBox1.Items.Add(strQuestion);
-                    listBox1.SelectedIndex += 1;
-                    intTimeLeft = intTimePerAnswer;
+                    Play();
                 }
             }
         }
-
         private void textBoxAnswer_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -269,6 +371,14 @@ namespace MathExplorer
                 labelTimeRemaining.Visible = true;
                 labelPoints.Visible = true;
                 labelPoints.Text = "Points: " + intPoints.ToString();
+                textBoxAnswer.Enabled = true;
+                buttonAnswer.Enabled = true;
+                labelElapsed.Visible = true;
+                labelElapsed.Text = "Time elapsed: " + stopWatch.Elapsed.ToString();
+
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
             }
             else
             {
@@ -276,6 +386,26 @@ namespace MathExplorer
                 timer1.Enabled = false;
                 labelTimeRemaining.Visible = false;
                 labelPoints.Visible = false;
+                listBox1.Items.Clear();
+                textBoxAnswer.Text = "";
+                textBoxAnswer.Enabled = false;
+                buttonAnswer.Enabled = false;
+                labelElapsed.Visible = false;
+
+                groupBox1.Enabled = true;
+                groupBox2.Enabled = true;
+                groupBox3.Enabled = true;
+            }
+            if (radioButtonLightningOFF.Checked)
+            {
+                textBoxLightning.Text = "";
+                textBoxLightning.Enabled = false;
+                groupBox2.Enabled = true;
+            }
+            else
+            {
+                textBoxLightning.Enabled = true;
+                groupBox2.Enabled = false;
             }
         }
 
@@ -283,6 +413,11 @@ namespace MathExplorer
         {
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+
         }
     }
 }

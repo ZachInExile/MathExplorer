@@ -50,8 +50,14 @@ namespace MathExplorer
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.labelTimeRemaining = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.labelElapsed = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBoxLightning = new System.Windows.Forms.TextBox();
+            this.radioButtonLightningON = new System.Windows.Forms.RadioButton();
+            this.radioButtonLightningOFF = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -142,7 +148,7 @@ namespace MathExplorer
             this.groupBox2.Controls.Add(this.radioButton60s);
             this.groupBox2.Location = new System.Drawing.Point(228, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(132, 100);
+            this.groupBox2.Size = new System.Drawing.Size(108, 100);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Time to answer";
@@ -185,20 +191,20 @@ namespace MathExplorer
             this.listBox1.ItemHeight = 15;
             this.listBox1.Location = new System.Drawing.Point(12, 185);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(348, 124);
+            this.listBox1.Size = new System.Drawing.Size(432, 124);
             this.listBox1.TabIndex = 3;
             // 
             // textBoxAnswer
             // 
-            this.textBoxAnswer.Location = new System.Drawing.Point(12, 315);
+            this.textBoxAnswer.Location = new System.Drawing.Point(12, 314);
             this.textBoxAnswer.Name = "textBoxAnswer";
-            this.textBoxAnswer.Size = new System.Drawing.Size(267, 23);
+            this.textBoxAnswer.Size = new System.Drawing.Size(105, 23);
             this.textBoxAnswer.TabIndex = 4;
             this.textBoxAnswer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxAnswer_KeyDown);
             // 
             // buttonAnswer
             // 
-            this.buttonAnswer.Location = new System.Drawing.Point(285, 314);
+            this.buttonAnswer.Location = new System.Drawing.Point(122, 315);
             this.buttonAnswer.Name = "buttonAnswer";
             this.buttonAnswer.Size = new System.Drawing.Size(75, 23);
             this.buttonAnswer.TabIndex = 5;
@@ -210,7 +216,7 @@ namespace MathExplorer
             // 
             this.buttonPlay.Location = new System.Drawing.Point(12, 118);
             this.buttonPlay.Name = "buttonPlay";
-            this.buttonPlay.Size = new System.Drawing.Size(348, 60);
+            this.buttonPlay.Size = new System.Drawing.Size(432, 60);
             this.buttonPlay.TabIndex = 6;
             this.buttonPlay.Text = "Play";
             this.buttonPlay.UseVisualStyleBackColor = true;
@@ -246,11 +252,64 @@ namespace MathExplorer
             this.timer2.Enabled = true;
             this.timer2.Tick += new System.EventHandler(this.timer2_OnTick);
             // 
+            // labelElapsed
+            // 
+            this.labelElapsed.AutoSize = true;
+            this.labelElapsed.Location = new System.Drawing.Point(228, 366);
+            this.labelElapsed.Name = "labelElapsed";
+            this.labelElapsed.Size = new System.Drawing.Size(79, 15);
+            this.labelElapsed.TabIndex = 9;
+            this.labelElapsed.Text = "Elapsed Time:";
+            this.labelElapsed.Visible = false;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.textBoxLightning);
+            this.groupBox3.Controls.Add(this.radioButtonLightningON);
+            this.groupBox3.Controls.Add(this.radioButtonLightningOFF);
+            this.groupBox3.Location = new System.Drawing.Point(342, 12);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(102, 100);
+            this.groupBox3.TabIndex = 10;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Lighting Mode";
+            // 
+            // textBoxLightning
+            // 
+            this.textBoxLightning.Location = new System.Drawing.Point(8, 70);
+            this.textBoxLightning.Name = "textBoxLightning";
+            this.textBoxLightning.Size = new System.Drawing.Size(88, 23);
+            this.textBoxLightning.TabIndex = 11;
+            // 
+            // radioButtonLightningON
+            // 
+            this.radioButtonLightningON.AutoSize = true;
+            this.radioButtonLightningON.Location = new System.Drawing.Point(8, 46);
+            this.radioButtonLightningON.Name = "radioButtonLightningON";
+            this.radioButtonLightningON.Size = new System.Drawing.Size(41, 19);
+            this.radioButtonLightningON.TabIndex = 12;
+            this.radioButtonLightningON.Text = "On";
+            this.radioButtonLightningON.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonLightningOFF
+            // 
+            this.radioButtonLightningOFF.AutoSize = true;
+            this.radioButtonLightningOFF.Checked = true;
+            this.radioButtonLightningOFF.Location = new System.Drawing.Point(8, 21);
+            this.radioButtonLightningOFF.Name = "radioButtonLightningOFF";
+            this.radioButtonLightningOFF.Size = new System.Drawing.Size(42, 19);
+            this.radioButtonLightningOFF.TabIndex = 11;
+            this.radioButtonLightningOFF.TabStop = true;
+            this.radioButtonLightningOFF.Text = "Off";
+            this.radioButtonLightningOFF.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(372, 390);
+            this.ClientSize = new System.Drawing.Size(456, 390);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.labelElapsed);
             this.Controls.Add(this.labelTimeRemaining);
             this.Controls.Add(this.labelPoints);
             this.Controls.Add(this.buttonPlay);
@@ -266,6 +325,8 @@ namespace MathExplorer
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -293,6 +354,11 @@ namespace MathExplorer
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label labelTimeRemaining;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Label labelElapsed;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RadioButton radioButtonLightningON;
+        private System.Windows.Forms.RadioButton radioButtonLightningOFF;
+        private System.Windows.Forms.TextBox textBoxLightning;
     }
 }
 
