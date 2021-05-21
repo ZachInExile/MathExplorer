@@ -48,6 +48,8 @@ namespace MathExplorer
             this.buttonPlay = new System.Windows.Forms.Button();
             this.labelPoints = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.labelTimeRemaining = new System.Windows.Forms.Label();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -143,7 +145,7 @@ namespace MathExplorer
             this.groupBox2.Size = new System.Drawing.Size(132, 100);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Time";
+            this.groupBox2.Text = "Time to answer";
             // 
             // radioButton10s
             // 
@@ -181,7 +183,7 @@ namespace MathExplorer
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 15;
-            this.listBox1.Location = new System.Drawing.Point(12, 184);
+            this.listBox1.Location = new System.Drawing.Point(12, 185);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(348, 124);
             this.listBox1.TabIndex = 3;
@@ -190,17 +192,19 @@ namespace MathExplorer
             // 
             this.textBoxAnswer.Location = new System.Drawing.Point(12, 315);
             this.textBoxAnswer.Name = "textBoxAnswer";
-            this.textBoxAnswer.Size = new System.Drawing.Size(122, 23);
+            this.textBoxAnswer.Size = new System.Drawing.Size(267, 23);
             this.textBoxAnswer.TabIndex = 4;
+            this.textBoxAnswer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxAnswer_KeyDown);
             // 
             // buttonAnswer
             // 
-            this.buttonAnswer.Location = new System.Drawing.Point(140, 315);
+            this.buttonAnswer.Location = new System.Drawing.Point(285, 314);
             this.buttonAnswer.Name = "buttonAnswer";
             this.buttonAnswer.Size = new System.Drawing.Size(75, 23);
             this.buttonAnswer.TabIndex = 5;
             this.buttonAnswer.Text = "Answer";
             this.buttonAnswer.UseVisualStyleBackColor = true;
+            this.buttonAnswer.Click += new System.EventHandler(this.buttonAnswer_Click);
             // 
             // buttonPlay
             // 
@@ -215,22 +219,39 @@ namespace MathExplorer
             // labelPoints
             // 
             this.labelPoints.AutoSize = true;
-            this.labelPoints.Location = new System.Drawing.Point(228, 318);
+            this.labelPoints.Location = new System.Drawing.Point(12, 351);
             this.labelPoints.Name = "labelPoints";
-            this.labelPoints.Size = new System.Drawing.Size(115, 15);
+            this.labelPoints.Size = new System.Drawing.Size(52, 15);
             this.labelPoints.TabIndex = 7;
-            this.labelPoints.Text = "Points: 1,000,000,000";
+            this.labelPoints.Text = "Points: 0";
+            this.labelPoints.Visible = false;
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // labelTimeRemaining
+            // 
+            this.labelTimeRemaining.AutoSize = true;
+            this.labelTimeRemaining.Location = new System.Drawing.Point(12, 366);
+            this.labelTimeRemaining.Name = "labelTimeRemaining";
+            this.labelTimeRemaining.Size = new System.Drawing.Size(96, 15);
+            this.labelTimeRemaining.TabIndex = 8;
+            this.labelTimeRemaining.Text = "Time Remaining:";
+            this.labelTimeRemaining.Visible = false;
+            // 
+            // timer2
+            // 
+            this.timer2.Enabled = true;
+            this.timer2.Tick += new System.EventHandler(this.timer2_OnTick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(372, 350);
+            this.ClientSize = new System.Drawing.Size(372, 390);
+            this.Controls.Add(this.labelTimeRemaining);
             this.Controls.Add(this.labelPoints);
             this.Controls.Add(this.buttonPlay);
             this.Controls.Add(this.buttonAnswer);
@@ -240,6 +261,7 @@ namespace MathExplorer
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -269,6 +291,8 @@ namespace MathExplorer
         private System.Windows.Forms.Button buttonPlay;
         private System.Windows.Forms.Label labelPoints;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label labelTimeRemaining;
+        private System.Windows.Forms.Timer timer2;
     }
 }
 
