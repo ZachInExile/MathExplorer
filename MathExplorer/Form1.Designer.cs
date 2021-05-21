@@ -31,30 +31,31 @@ namespace MathExplorer
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxMultiplication = new System.Windows.Forms.CheckBox();
+            this.checkBoxSubtraction = new System.Windows.Forms.CheckBox();
+            this.checkBoxAddition = new System.Windows.Forms.CheckBox();
             this.radioButtonHard = new System.Windows.Forms.RadioButton();
             this.radioButtonMedium = new System.Windows.Forms.RadioButton();
             this.radioButtonEasy = new System.Windows.Forms.RadioButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBoxAddition = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButton60s = new System.Windows.Forms.RadioButton();
-            this.radioButton20s = new System.Windows.Forms.RadioButton();
             this.radioButton10s = new System.Windows.Forms.RadioButton();
+            this.radioButton20s = new System.Windows.Forms.RadioButton();
+            this.radioButton60s = new System.Windows.Forms.RadioButton();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxAnswer = new System.Windows.Forms.TextBox();
             this.buttonAnswer = new System.Windows.Forms.Button();
             this.buttonPlay = new System.Windows.Forms.Button();
             this.labelPoints = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkBox2);
-            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.checkBoxMultiplication);
+            this.groupBox1.Controls.Add(this.checkBoxSubtraction);
             this.groupBox1.Controls.Add(this.checkBoxAddition);
             this.groupBox1.Controls.Add(this.radioButtonHard);
             this.groupBox1.Controls.Add(this.radioButtonMedium);
@@ -65,6 +66,36 @@ namespace MathExplorer
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Difficulty";
+            // 
+            // checkBoxMultiplication
+            // 
+            this.checkBoxMultiplication.AutoSize = true;
+            this.checkBoxMultiplication.Location = new System.Drawing.Point(110, 73);
+            this.checkBoxMultiplication.Name = "checkBoxMultiplication";
+            this.checkBoxMultiplication.Size = new System.Drawing.Size(100, 19);
+            this.checkBoxMultiplication.TabIndex = 4;
+            this.checkBoxMultiplication.Text = "Multiplication";
+            this.checkBoxMultiplication.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxSubtraction
+            // 
+            this.checkBoxSubtraction.AutoSize = true;
+            this.checkBoxSubtraction.Location = new System.Drawing.Point(110, 47);
+            this.checkBoxSubtraction.Name = "checkBoxSubtraction";
+            this.checkBoxSubtraction.Size = new System.Drawing.Size(87, 19);
+            this.checkBoxSubtraction.TabIndex = 3;
+            this.checkBoxSubtraction.Text = "Subtraction";
+            this.checkBoxSubtraction.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAddition
+            // 
+            this.checkBoxAddition.AutoSize = true;
+            this.checkBoxAddition.Location = new System.Drawing.Point(110, 22);
+            this.checkBoxAddition.Name = "checkBoxAddition";
+            this.checkBoxAddition.Size = new System.Drawing.Size(72, 19);
+            this.checkBoxAddition.TabIndex = 1;
+            this.checkBoxAddition.Text = "Addition";
+            this.checkBoxAddition.UseVisualStyleBackColor = true;
             // 
             // radioButtonHard
             // 
@@ -102,36 +133,6 @@ namespace MathExplorer
             // 
             this.toolTip1.ShowAlways = true;
             // 
-            // checkBoxAddition
-            // 
-            this.checkBoxAddition.AutoSize = true;
-            this.checkBoxAddition.Location = new System.Drawing.Point(110, 22);
-            this.checkBoxAddition.Name = "checkBoxAddition";
-            this.checkBoxAddition.Size = new System.Drawing.Size(72, 19);
-            this.checkBoxAddition.TabIndex = 1;
-            this.checkBoxAddition.Text = "Addition";
-            this.checkBoxAddition.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(110, 47);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(87, 19);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "Subtraction";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(110, 72);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(100, 19);
-            this.checkBox2.TabIndex = 4;
-            this.checkBox2.Text = "Multiplication";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.radioButton10s);
@@ -143,6 +144,26 @@ namespace MathExplorer
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Time";
+            // 
+            // radioButton10s
+            // 
+            this.radioButton10s.AutoSize = true;
+            this.radioButton10s.Location = new System.Drawing.Point(6, 71);
+            this.radioButton10s.Name = "radioButton10s";
+            this.radioButton10s.Size = new System.Drawing.Size(84, 19);
+            this.radioButton10s.TabIndex = 2;
+            this.radioButton10s.Text = "10 Seconds";
+            this.radioButton10s.UseVisualStyleBackColor = true;
+            // 
+            // radioButton20s
+            // 
+            this.radioButton20s.AutoSize = true;
+            this.radioButton20s.Location = new System.Drawing.Point(6, 46);
+            this.radioButton20s.Name = "radioButton20s";
+            this.radioButton20s.Size = new System.Drawing.Size(84, 19);
+            this.radioButton20s.TabIndex = 2;
+            this.radioButton20s.Text = "20 Seconds";
+            this.radioButton20s.UseVisualStyleBackColor = true;
             // 
             // radioButton60s
             // 
@@ -156,26 +177,6 @@ namespace MathExplorer
             this.radioButton60s.Text = "60 Seconds";
             this.radioButton60s.UseVisualStyleBackColor = true;
             // 
-            // radioButton20s
-            // 
-            this.radioButton20s.AutoSize = true;
-            this.radioButton20s.Location = new System.Drawing.Point(6, 46);
-            this.radioButton20s.Name = "radioButton20s";
-            this.radioButton20s.Size = new System.Drawing.Size(84, 19);
-            this.radioButton20s.TabIndex = 2;
-            this.radioButton20s.Text = "20 Seconds";
-            this.radioButton20s.UseVisualStyleBackColor = true;
-            // 
-            // radioButton10s
-            // 
-            this.radioButton10s.AutoSize = true;
-            this.radioButton10s.Location = new System.Drawing.Point(6, 71);
-            this.radioButton10s.Name = "radioButton10s";
-            this.radioButton10s.Size = new System.Drawing.Size(84, 19);
-            this.radioButton10s.TabIndex = 2;
-            this.radioButton10s.Text = "10 Seconds";
-            this.radioButton10s.UseVisualStyleBackColor = true;
-            // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
@@ -185,12 +186,12 @@ namespace MathExplorer
             this.listBox1.Size = new System.Drawing.Size(348, 124);
             this.listBox1.TabIndex = 3;
             // 
-            // textBox1
+            // textBoxAnswer
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 315);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(122, 23);
-            this.textBox1.TabIndex = 4;
+            this.textBoxAnswer.Location = new System.Drawing.Point(12, 315);
+            this.textBoxAnswer.Name = "textBoxAnswer";
+            this.textBoxAnswer.Size = new System.Drawing.Size(122, 23);
+            this.textBoxAnswer.TabIndex = 4;
             // 
             // buttonAnswer
             // 
@@ -209,6 +210,7 @@ namespace MathExplorer
             this.buttonPlay.TabIndex = 6;
             this.buttonPlay.Text = "Play";
             this.buttonPlay.UseVisualStyleBackColor = true;
+            this.buttonPlay.Click += new System.EventHandler(this.buttonPlay_Click);
             // 
             // labelPoints
             // 
@@ -219,6 +221,11 @@ namespace MathExplorer
             this.labelPoints.TabIndex = 7;
             this.labelPoints.Text = "Points: 1,000,000,000";
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -227,7 +234,7 @@ namespace MathExplorer
             this.Controls.Add(this.labelPoints);
             this.Controls.Add(this.buttonPlay);
             this.Controls.Add(this.buttonAnswer);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxAnswer);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -249,18 +256,19 @@ namespace MathExplorer
         private System.Windows.Forms.RadioButton radioButtonMedium;
         private System.Windows.Forms.RadioButton radioButtonEasy;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxMultiplication;
+        private System.Windows.Forms.CheckBox checkBoxSubtraction;
         private System.Windows.Forms.CheckBox checkBoxAddition;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radioButton10s;
         private System.Windows.Forms.RadioButton radioButton20s;
         private System.Windows.Forms.RadioButton radioButton60s;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxAnswer;
         private System.Windows.Forms.Button buttonAnswer;
         private System.Windows.Forms.Button buttonPlay;
         private System.Windows.Forms.Label labelPoints;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
