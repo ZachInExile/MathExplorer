@@ -16,11 +16,11 @@ namespace MathExplorer
         public int intPointsEasy = 5; //Points gained for a right answer in Easy
         public int intWrongEasy = 1; //Points subtracted for wrong answer in Easy
 
-        public int intPointsMedium = 10;
-        public int intWrongMedium = 5;
+        public int intPointsMedium = 20;
+        public int intWrongMedium = 10;
 
-        public int intPointsHard = 20;
-        public int intWrongHard = 10;
+        public int intPointsHard = 50;
+        public int intWrongHard = 50;
 
         public int intPoints = 0; //The points you have
 
@@ -54,7 +54,7 @@ namespace MathExplorer
             toolTip1.SetToolTip(radioButtonEasy, "Gain " + intPointsEasy.ToString() + " points per correct answer, lose " + intWrongEasy.ToString() + " points per incorrect answer.");
             toolTip1.SetToolTip(radioButtonMedium, "Gain " + intPointsMedium.ToString() + " points per correct answer, lose " + intWrongMedium.ToString() + " points per incorrect answer.");
             toolTip1.SetToolTip(radioButtonHard, "Gain " + intPointsHard.ToString() + " points per correct answer, lose " + intWrongHard.ToString() + " points per incorrect answer.");
-            toolTip1.SetToolTip(textBoxLightning, "In lightning mode, your remaining time doesn't reset when you answer, rather you want to answer as many questions as you can in the time you can, in seconds, entered here.");
+            toolTip1.SetToolTip(textBoxLightning, "In lightning mode, your remaining time doesn't reset when you answer. Instead, you want to answer as many questions as possibl. (In seconds, entered here.)");
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -76,18 +76,18 @@ namespace MathExplorer
 
             if (radioButtonEasy.Checked)
             {
-                intQuestionP1 = R.Next(1, 10);
-                intQuestionP2 = R.Next(1, 10);
+                intQuestionP1 = R.Next(1, 5);
+                intQuestionP2 = R.Next(1, 5);
             }
             else if (radioButtonMedium.Checked)
             {
-                intQuestionP1 = R.Next(10, 100);
-                intQuestionP2 = R.Next(10, 100);
+                intQuestionP1 = R.Next(1, 20);
+                intQuestionP2 = R.Next(1, 20);
             }
             else if (radioButtonHard.Checked)
             {
-                intQuestionP1 = R.Next(100, 1000);
-                intQuestionP2 = R.Next(100, 1000);
+                intQuestionP1 = R.Next(1, 100);
+                intQuestionP2 = R.Next(1, 100);
             }
 
             if (intQuestionType == 0) //Addition
@@ -102,6 +102,7 @@ namespace MathExplorer
             }
             else if (intQuestionType == 2) //Multiplication
             {
+                intRightAnswer = intQuestionP1 * intQuestionP2;
                 strQuestion = intQuestionP1.ToString() + " x " + intQuestionP2.ToString() + " = ?";
             }
         }
@@ -202,46 +203,46 @@ namespace MathExplorer
             {
                 if (intPoints <= 0)
                 {
-                    MessageBox.Show("Wow, you suck. You got " + intPoints.ToString() + " points... You played for: " + stopWatch.Elapsed.ToString());
+                    MessageBox.Show("Time to study! You got " + intPoints.ToString() + " points... You played for: " + stopWatch.Elapsed.ToString());
                 }
                 else if (intPoints > 0 & intPoints < 100)
                 {
-                    MessageBox.Show("Good job, you managed to score " + intPoints.ToString() + " points. You played for: " + stopWatch.Elapsed.ToString());
+                    MessageBox.Show("Good job!! you managed to score " + intPoints.ToString() + " points. You played for: " + stopWatch.Elapsed.ToString());
                 }
                 else if (intPoints >= 100 & intPoints < 500)
                 {
-                    MessageBox.Show("Hell yeah! Congratulations, you got " + intPoints.ToString() + " points. You played for: " + stopWatch.Elapsed.ToString());
+                    MessageBox.Show("Awesome!!! You got " + intPoints.ToString() + " points. You played for: " + stopWatch.Elapsed.ToString());
                 }
                 else if (intPoints >= 500 & intPoints < 1000)
                 {
-                    MessageBox.Show("Holy shit. " + intPoints.ToString() + " points! You played for: " + stopWatch.Elapsed.ToString());
+                    MessageBox.Show("Wow!!!! " + intPoints.ToString() + " points! You played for: " + stopWatch.Elapsed.ToString());
                 }
                 else if (intPoints >= 1000)
                 {
-                    MessageBox.Show("You are a math god. " + intPoints.ToString() + " fucking points. You played for: " + stopWatch.Elapsed.ToString());
+                    MessageBox.Show("You are a true Math Explorer!!!!! " + intPoints.ToString() + " points. You played for: " + stopWatch.Elapsed.ToString());
                 }
             }
             else
             {
                 if (intPoints <= 0)
                 {
-                    MessageBox.Show("Wow, you suck. You got " + intPoints.ToString() + " points... (" + intLightningTime.ToString() + " second Lightning Mode)");
+                    MessageBox.Show("Time to study! You got " + intPoints.ToString() + " points... (" + intLightningTime.ToString() + " second Lightning Mode)");
                 }
                 else if (intPoints > 0 & intPoints < 100)
                 {
-                    MessageBox.Show("Good job, you managed to score " + intPoints.ToString() + " points. (" + intLightningTime.ToString() + " second Lightning Mode)");
+                    MessageBox.Show("Good job!! You managed to score " + intPoints.ToString() + " points. (" + intLightningTime.ToString() + " second Lightning Mode)");
                 }
                 else if (intPoints >= 100 & intPoints < 500)
                 {
-                    MessageBox.Show("Hell yeah! Congratulations, you got " + intPoints.ToString() + " points. (" + intLightningTime.ToString() + " second Lightning Mode)");
+                    MessageBox.Show("Awesome!!! You gotou got " + intPoints.ToString() + " points. (" + intLightningTime.ToString() + " second Lightning Mode)");
                 }
                 else if (intPoints >= 500 & intPoints < 1000)
                 {
-                    MessageBox.Show("Holy shit. " + intPoints.ToString() + " points! (" + intLightningTime.ToString() + " second Lightning Mode)");
+                    MessageBox.Show("Wow!!!! " + intPoints.ToString() + " points! (" + intLightningTime.ToString() + " second Lightning Mode)");
                 }
                 else if (intPoints >= 1000)
                 {
-                    MessageBox.Show("You are a math god. " + intPoints.ToString() + " fucking points. (" + intLightningTime.ToString() + " second Lightning Mode)");
+                    MessageBox.Show("You are a true Math Explorer!!!!! " + intPoints.ToString() + " points. (" + intLightningTime.ToString() + " second Lightning Mode)");
                 }
             }
 
