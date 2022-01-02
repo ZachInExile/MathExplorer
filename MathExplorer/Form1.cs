@@ -22,7 +22,12 @@ namespace MathExplorer
         public int intPointsHard = 50;
         public int intWrongHard = 50;
 
-        public int intPoints = 0; //The points you have
+        public int intPoints = 0; //The points you have at any given time
+
+        public int intMultiplier; //The current multiplier being "used", see below
+        public int int60sBonus = 0; //Bonus points (as a percentage of intPoints____) given for playing on 60 seconds per question.
+        public int int20sBonus = 20;
+        public int int10sbonus = 50;
 
         public bool boolAddEnabled;
         public bool boolSubEnabled;
@@ -249,6 +254,19 @@ namespace MathExplorer
         }
         public void Play()
         {
+            if (radioButton60s.Checked)
+            {
+                intMultiplier = int60sBonus;
+            }
+            else if (radioButton20s.Checked)
+            {
+                intMultiplier = int20sBonus;
+            }
+            else if (radioButton10s.Checked)
+            {
+                intMultiplier = int10sbonus;
+            }
+
             GenerateQuestion();
 
             listBox1.Items.Add(strQuestion);
